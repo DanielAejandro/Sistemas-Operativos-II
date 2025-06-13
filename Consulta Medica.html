@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Consulta Médica</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f7f9;
+    }
+
+    header {
+      background-color: #007acc;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #e0e0e0;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav button {
+      margin: 0.5rem;
+      padding: 0.7rem 1.2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      background-color: #007acc;
+      color: white;
+      cursor: pointer;
+    }
+
+    nav button:hover {
+      background-color: #005f99;
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    section {
+      background-color: white;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #007acc;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    input, select, textarea, button[type="submit"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    button[type="submit"] {
+      background-color: #007acc;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #005f99;
+    }
+
+    .receta {
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .doctor {
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border: 1px dashed #ccc;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Consulta Médica Online</h1>
+    <p>Visualiza tus recetas, agenda tus citas y conoce a nuestros doctores</p>
+  </header>
+
+  <nav>
+    <button onclick="scrollToSection('recetas')">Ver Recetas</button>
+    <button onclick="scrollToSection('citas')">Agendar Cita</button>
+    <button onclick="scrollToSection('doctores')">Ver Doctores</button>
+  </nav>
+
+  <main>
+
+    <section id="recetas">
+      <h2>Recetas Médicas</h2>
+      <div class="receta">
+        <strong>Fecha:</strong> 10 de junio de 2025<br>
+        <strong>Doctor:</strong> Dra. Elena Morales<br>
+        <strong>Medicamentos:</strong> Paracetamol 500mg - 2 veces al día por 5 días.
+      </div>
+      <div class="receta">
+        <strong>Fecha:</strong> 25 de mayo de 2025<br>
+        <strong>Doctor:</strong> Dr. Juan Pérez<br>
+        <strong>Medicamentos:</strong> Ibuprofeno 400mg - cada 8 horas por 3 días.
+      </div>
+    </section>
+
+    <section id="citas">
+      <h2>Agendar una Cita</h2>
+      <form action="#" method="post">
+        <label for="nombre">Nombre completo:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="especialidad">Especialidad:</label>
+        <select id="especialidad" name="especialidad" required>
+          <option value="">Selecciona una especialidad</option>
+          <option value="medicina_general">Medicina General</option>
+          <option value="pediatria">Pediatría</option>
+          <option value="cardiologia">Cardiología</option>
+          <option value="dermatologia">Dermatología</option>
+        </select>
+
+        <label for="fecha">Fecha de la cita:</label>
+        <input type="date" id="fecha" name="fecha" required>
+
+        <label for="hora">Hora:</label>
+        <input type="time" id="hora" name="hora" required>
+
+        <label for="motivo">Motivo de la consulta:</label>
+        <textarea id="motivo" name="motivo" rows="4" required placeholder="Describe brevemente tus síntomas..."></textarea>
+
+        <button type="submit">Agendar Cita</button>
+      </form>
+    </section>
+
+    <section id="doctores">
+      <h2>Doctores Disponibles</h2>
+      <div class="doctor">
+        <strong>Nombre:</strong> Dra. Elena Morales<br>
+        <strong>Especialidad:</strong> Medicina General<br>
+        <strong>Experiencia:</strong> 8 años
+      </div>
+      <div class="doctor">
+        <strong>Nombre:</strong> Dr. Juan Pérez<br>
+        <strong>Especialidad:</strong> Cardiología<br>
+        <strong>Experiencia:</strong> 12 años
+      </div>
+      <div class="doctor">
+        <strong>Nombre:</strong> Dra. Laura Castillo<br>
+        <strong>Especialidad:</strong> Dermatología<br>
+        <strong>Experiencia:</strong> 5 años
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>
+
