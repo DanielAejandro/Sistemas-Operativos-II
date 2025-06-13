@@ -1,36 +1,28 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
-from sqlalchemy.orm import relationship
 from .database import Base
 
-class Usuario(Base):
-    __tablename__ = "usuarios"
-    id = Column(Integer, primary_key=True, index=True)
-    email = Column(String, unique=True, index=True)
-    password = Column(String)
-    tipo = Column(String)  # paciente, doctor, admin
-
 class Doctor(Base):
-    __tablename__ = "doctores"
+    __tablename__ = "doctors"
     id = Column(Integer, primary_key=True, index=True)
-    nombre = Column(String)
-    especialidad = Column(String)
+    nombre = Column(String, nullable=False)
+    especialidad = Column(String, nullable=False)
 
-class Paciente(Base):
-    __tablename__ = "pacientes"
+class Patient(Base):
+    __tablename__ = "patients"
     id = Column(Integer, primary_key=True, index=True)
-    nombre = Column(String)
-    edad = Column(Integer)
+    nombre = Column(String, nullable=False)
+    edad = Column(Integer, nullable=False)
 
-class Cita(Base):
-    __tablename__ = "citas"
+class Appointment(Base):
+    __tablename__ = "appointments"
     id = Column(Integer, primary_key=True, index=True)
-    paciente_id = Column(Integer, ForeignKey("pacientes.id"))
-    doctor_id = Column(Integer, ForeignKey("doctores.id"))
-    fecha = Column(DateTime)
+    paciente_id = Column(Integer, ForeignKey("patients.id", ondelete="CASCADE"))
+    doctor_id = Column(Integer, ForeignKey("doctors.id", ondelete="CASCADE"))
+    fecha = Column(DateTime, nullable=False)
 
-class Receta(Base):
-    __tablename__ = "recetas"
+class Prescription(Base):
+    __tablename__ = "prescriptions"
     id = Column(Integer, primary_key=True, index=True)
-    cita_id = Column(Integer, ForeignKey("citas.id"))
-    descripcion = Column(String)
+    cita_id = Column(Integer, ForeignKey("appointments.id", ondelete="CASCADE"))
+    descripcion = Column(String, nullable=False)
 

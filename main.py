@@ -1,30 +1,27 @@
-from fastapi.middleware.cors import CORSMiddleware
-
-app = FastAPI()
-
-# Permitimos solicitudes desde Angular (puerto 4200)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:4200"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 from fastapi import FastAPI
-from app.auth import router as auth_router
-from app.routes import doctores, pacientes, citas, recetas
-from app.database import Base, engine
-
-# Crear las tablas
-Base.metadata.create_all(bind=engine)
+from .database import Base, engine
+from .models import Doctor, Patient, Appointment, Prescription
 
 app = FastAPI()
 
-# Incluir rutas
-app.include_router(auth_router)
-app.include_router(doctores.router)
-app.include_router(pacientes.router)
-app.include_router(citas.router)
-app.include_router(recetas.router)
+# Crea las tablas en la DB si no existen (opcional si ya las creaste en SQL)
+# Base.metadata.create_all(bind=engine)
+
+@app.get("/")
+def home():
+    return {"msg": "API Clínica funcionando"}
+from fastapi import FastAPI
+
+app = FastAPI(
+    title="API Clínica Médica",
+    description="Esta API gestiona pacientes, doctores, citas y recetas médicas.",
+    version="1.0.0",
+    contact={
+        "name": "Dan Dev",
+        "email": "dan@example.com"
+    },
+    docs_url="/documentacion",     # <- Swagger UI aquí
+    redoc_url="/redoc",            # <- ReDoc aquí
+    openapi_url="/openapi.json"    # <- JSON del esquema
+)
 
