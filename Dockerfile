@@ -1,8 +1,11 @@
-FROM node:20-alpine as build
-WORKDIR /app
-COPY . .
-RUN npm install && npm run build --prod
+FROM python:3.11-slim
 
-FROM nginx:alpine
-COPY --from=build /app/dist/ /usr/share/nginx/html
+WORKDIR /app
+
+COPY ./app /app
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 

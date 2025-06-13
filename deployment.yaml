@@ -1,31 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: angular-frontend
+  name: auth-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: angular
+      app: auth
   template:
     metadata:
       labels:
-        app: angular
+        app: auth
     spec:
       containers:
-        - name: angular
-          image: gcr.io/tu-proyecto/frontend:latest
+        - name: auth
+          image: gcr.io/tu-proyecto/auth-service:latest
           ports:
-            - containerPort: 80
+            - containerPort: 8000
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://user:pass@postgres:5432/auth"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend
+  name: auth-service
 spec:
   selector:
-    app: angular
+    app: auth
   ports:
     - protocol: TCP
       port: 80
+      targetPort: 8000
 

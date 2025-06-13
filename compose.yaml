@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+  auth-service:
+    build: ./auth-microservice
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "8001:8000"
+    environment:
+      - DATABASE_URL=postgresql://user:pass@postgres:5432/auth
+
+  doctor-service:
+    build: ./doctor-microservice
+    depends_on:
+      - postgres
+    ports:
+      - "8002:8000"
+    environment:
+      - DATABASE_URL=postgresql://user:pass@postgres:5432/doctor
+
+  # Agrega aquí los demás servicios de forma similar
+
+volumes:
+  pgdata:
+
